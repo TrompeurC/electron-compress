@@ -6,6 +6,9 @@ import { electronAPI } from '@electron-toolkit/preload'
 const api = {
   compress(file:IFile) {
     ipcRenderer.invoke('compress', file)
+  },
+  async selectDirectory() {
+    return ipcRenderer.invoke('selectDirectory')
   }
 }
 

@@ -7,7 +7,8 @@ declare global {
   interface Window {
     electron: ElectronAPI
     api: {
-      compress (file: IFile) :void
+      compress (file: IFile) :void,
+      selectDirectory (): Promise<string>
     }
   }
 }

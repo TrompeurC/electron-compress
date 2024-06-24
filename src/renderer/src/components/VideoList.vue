@@ -2,8 +2,9 @@
 // import { ref } from 'vue';
 import useFileList from '@renderer/store/useFileList';
 import VideoItem from './VideoItem.vue';
+import { storeToRefs } from 'pinia';
 
-const { files } = useFileList()
+const { files } = storeToRefs(useFileList())
 
 
 // const list = ref([])
@@ -11,7 +12,7 @@ const { files } = useFileList()
 
 <template>
   <div class="px-2 h-72 overflow-auto">
-    <VideoItem v-for="(item, index) of files" :key="index" :file="item"></VideoItem>
+    <VideoItem v-for="(item, index) of files" :key="index" :index="index" :file="item"></VideoItem>
   </div>
 </template>
 

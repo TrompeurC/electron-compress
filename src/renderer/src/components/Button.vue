@@ -28,7 +28,11 @@ const handleCompress = () => {
     message.warn('请添加要压缩的文件！')
     return
   }
-  window.api.compress({ ...files[0], size: current.fps, fps: Number(current.size) })
+  if (!current.directory) {
+    message.warn('请选择存放的文件位置！')
+    return
+  }
+  window.api.compress({ ...files[0], size: current.fps, fps: Number(current.size), directory: current.directory })
 }
 
 </script>

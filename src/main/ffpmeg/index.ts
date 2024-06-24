@@ -2,6 +2,8 @@
 import ffmpeg ,{type FfmpegCommand}  from 'fluent-ffmpeg'
 import ffmpegI from '@ffmpeg-installer/ffmpeg'
 import ffprobe  from '@ffprobe-installer/ffprobe'
+import path from 'node:path'
+import { FileEnum } from '../../types'
 
 ffmpeg.setFfmpegPath(ffmpegI.path)
 ffmpeg.setFfprobePath(ffprobe.path)
@@ -13,6 +15,8 @@ export interface IFile {
   finished: boolean
   size: string
   fps: number
+  directory: string
+  status: FileEnum
 }
 
 export class FfmpegUtils {
@@ -21,7 +25,14 @@ export class FfmpegUtils {
   constructor (private file: IFile) {
     this.ffmpeg = ffmpeg(this.file.filepath)
   }
+  getFileInfoName() {
+    const info = path.parse(this.file.filepath)
+    console.log(info)
+    return path.join(this.file.directory ,`${info.name}-${this.file.size}-${this.file.fps}fps${info.ext}`)
+  }
   run() {
+    console.log(this.file)
+    console.log(this.getFileInfoName())
     this.ffmpeg.videoCodec('libx264')
     .audioCodec('libmp3lame')
     .size(this.file.size)
@@ -29,7 +40,7 @@ export class FfmpegUtils {
     .on('progress', this.onPregress.bind(this))
     .on('error', this.onError.bind(this))
     .on('end', this.onEnd.bind(this))
-    .save('/Users/huenzhi/work/fe_workspace/electron/compressed-video/videos/out.mp4');
+    .save(this.getFileInfoName());
   }
   private onError(err) {
     console.log('An error occurred: ' + err.message);

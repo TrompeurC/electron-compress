@@ -1,14 +1,21 @@
 import { IFile } from "@renderer/types"
 import { defineStore } from "pinia"
+import { FileEnum } from "src/types"
 import { ref } from "vue"
+import useCurrentStore from "./useCurrentStore"
 
 export default defineStore('fileList', () => {
     const files = ref<IFile[]>([])
+    const current = useCurrentStore()
     const addFile = (file:Omit<IFile , 'finished' | 'progress'>) => {
       files.value.push({
         ...file,
         progress: 0,
-        finished: false
+        finished: false,
+        status: FileEnum.READY,
+        size: current.size,
+        fps: Number(current.fps),
+        directory: current.directory
       })
     }
     const remove = (index: number) => {

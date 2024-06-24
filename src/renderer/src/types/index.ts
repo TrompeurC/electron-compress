@@ -1,3 +1,5 @@
+import { FileEnum } from "src/types"
+
 export type ConfigProps  = 'size' | 'size'
 
 
@@ -8,4 +10,6 @@ export interface IFile {
   finished: boolean
   size: string
   fps: number
+  directory: string
+  status: FileEnum
 }
