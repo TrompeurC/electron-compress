@@ -4,9 +4,13 @@ import { PlusOutlined } from "@ant-design/icons-vue";
 import useFileList from "@renderer/store/useFileList";
 import { message } from "ant-design-vue";
 import useCurrentStore from "@renderer/store/useCurrentStore";
+import { onMounted, ref } from "vue";
+import { IFile } from "@renderer/types";
+import { FileEnum } from "src/types";
 
 const { addFile, files } = useFileList();
 const current = useCurrentStore()
+const currentFile = ref<IFile | null>(null)
 
 const handleCustomRequest = ({ file }) => {
   file = {
@@ -15,6 +19,28 @@ const handleCustomRequest = ({ file }) => {
   };
   addFile(file);
 };
+
+onMounted(() => {
+  // console.log(window.api)
+  window.api.progress((progress: number) => {
+    currentFile.value!.progress = progress
+  })
+})
+
+// window.api.progress((progress: number) => {
+//   currentFile.value!.progress = progress
+// })
+
+const getCurrentFile = () => {
+  const f = files.find(item => !item.finished)
+  if (f) {
+    currentFile.value = f;
+    currentFile.value.status = FileEnum.COMPRESS
+  } else {
+    currentFile.value = null
+    message.success('所有文件已压缩完成！')
+  }
+}
 
 // 开始压缩
 const handleCompress = () => {
@@ -32,7 +58,11 @@ const handleCompress = () => {
     message.warn('请选择存放的文件位置！')
     return
   }
-  window.api.compress({ ...files[0], size: current.fps, fps: Number(current.size), directory: current.directory })
+  getCurrentFile()
+  if (currentFile.value) {
+    window.api.compress({ ...currentFile.value, size: current.fps, fps: Number(current.size), directory: current.directory })
+
+  }
 }
 
 </script>

@@ -4,6 +4,7 @@ import ffmpegI from '@ffmpeg-installer/ffmpeg'
 import ffprobe  from '@ffprobe-installer/ffprobe'
 import path from 'node:path'
 import { FileEnum } from '../../types'
+import { BrowserWindow } from 'electron'
 
 ffmpeg.setFfmpegPath(ffmpegI.path)
 ffmpeg.setFfprobePath(ffprobe.path)
@@ -21,18 +22,15 @@ export interface IFile {
 
 export class FfmpegUtils {
   private ffmpeg:FfmpegCommand
-
-  constructor (private file: IFile) {
+  // private window: BrowserWindow
+  constructor (private window: BrowserWindow, private file: IFile) {
     this.ffmpeg = ffmpeg(this.file.filepath)
   }
   getFileInfoName() {
     const info = path.parse(this.file.filepath)
-    console.log(info)
     return path.join(this.file.directory ,`${info.name}-${this.file.size}-${this.file.fps}fps${info.ext}`)
   }
   run() {
-    console.log(this.file)
-    console.log(this.getFileInfoName())
     this.ffmpeg.videoCodec('libx264')
     .audioCodec('libmp3lame')
     .size(this.file.size)
@@ -46,7 +44,8 @@ export class FfmpegUtils {
     console.log('An error occurred: ' + err.message);
   }
   private onPregress(progress) {
-    console.log('Processing: ' + progress.percent + '% done');
+    this.window.webContents.send('progress' , progress.percent)
+    // console.log('Processing: ' + progress.percent + '% done');
   }
   private onEnd() {
     console.log('Processing finished !');

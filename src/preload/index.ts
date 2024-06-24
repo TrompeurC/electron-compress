@@ -1,5 +1,5 @@
 import { IFile } from '../main/ffpmeg';
-import { contextBridge, ipcRenderer } from 'electron'
+import { IpcMainEvent, IpcRendererEvent, contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
@@ -9,6 +9,11 @@ const api = {
   },
   async selectDirectory() {
     return ipcRenderer.invoke('selectDirectory')
+  },
+  progress(callback: (progress: number) => void) {
+    ipcRenderer.on('progress',(_event: IpcRendererEvent, progress: number) => {
+      callback(progress)
+    })
   }
 }
 

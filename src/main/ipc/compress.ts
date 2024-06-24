@@ -1,11 +1,11 @@
-import { IpcMainInvokeEvent, ipcMain } from "electron";
+import { BrowserWindow, IpcMainInvokeEvent, ipcMain } from "electron";
 import { FfmpegUtils, IFile } from "../ffpmeg";
 
 
 
 ipcMain.handle('compress', (_event: IpcMainInvokeEvent , file: IFile) => {
 
-  const ffmpeg = new FfmpegUtils(file)
+  const ffmpeg = new FfmpegUtils(BrowserWindow.fromWebContents(_event.sender)!,file)
   ffmpeg.run()
   // ffmpeg(file.filepath)
   // .videoCodec('libx264')
