@@ -6,8 +6,8 @@ import { message } from 'ant-design-vue'
 
 
 export default defineStore('config', () => {
-  const dips  = ref(['1920x1080', '1024x720'])
-  const sizes = ref(['30', '60', '120'])
+  const sizes  = ref(['1920x1080', '1024x720'])
+  const dips = ref(['30', '60', '120'])
 
   const add = (type: ConfigProps, val: string) => {
     if(!val) {

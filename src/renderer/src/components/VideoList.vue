@@ -6,7 +6,6 @@ import { storeToRefs } from 'pinia';
 
 const { files } = storeToRefs(useFileList())
 
-
 // const list = ref([])
 </script>
 

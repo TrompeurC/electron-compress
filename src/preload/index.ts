@@ -1,6 +1,7 @@
 import { IFile } from '../main/ffpmeg';
-import { IpcMainEvent, IpcRendererEvent, contextBridge, ipcRenderer } from 'electron'
+import {  IpcRendererEvent, contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
+import { ProgressType } from '../types';
 
 // Custom APIs for renderer
 const api = {
@@ -10,10 +11,13 @@ const api = {
   async selectDirectory() {
     return ipcRenderer.invoke('selectDirectory')
   },
-  progress(callback: (progress: number) => void) {
-    ipcRenderer.on('progress',(_event: IpcRendererEvent, progress: number) => {
-      callback(progress)
+  progressNotice(callback: (type: ProgressType ,data: any) => void) {
+    ipcRenderer.on('progressNotice',(_event: IpcRendererEvent, type: ProgressType, data:any) => {
+      callback(type , data)
     })
+  },
+  stop() {
+    ipcRenderer.send('stop')
   }
 }
 

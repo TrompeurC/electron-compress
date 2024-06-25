@@ -1,12 +1,16 @@
-import { BrowserWindow, IpcMainInvokeEvent, ipcMain } from "electron";
+import { FfmpegCommand } from 'fluent-ffmpeg';
+import { BrowserWindow, IpcMainEvent, IpcMainInvokeEvent, ipcMain } from "electron";
 import { FfmpegUtils, IFile } from "../ffpmeg";
+import { ProgressType } from '../../types';
 
 
+
+let ffmpegCommand:FfmpegCommand | null =  null
 
 ipcMain.handle('compress', (_event: IpcMainInvokeEvent , file: IFile) => {
 
   const ffmpeg = new FfmpegUtils(BrowserWindow.fromWebContents(_event.sender)!,file)
-  ffmpeg.run()
+  ffmpegCommand = ffmpeg.run()
   // ffmpeg(file.filepath)
   // .videoCodec('libx264')
   // .audioCodec('libmp3lame')
@@ -22,4 +26,8 @@ ipcMain.handle('compress', (_event: IpcMainInvokeEvent , file: IFile) => {
   //   console.log('Processing finished !');
   // })
   // .save('/Users/huenzhi/work/fe_workspace/electron/compressed-video/videos/out.mp4');
+})
+
+ipcMain.on('stop', (event: IpcMainEvent) => {
+  ffmpegCommand?.kill('SIGKILL')
 })

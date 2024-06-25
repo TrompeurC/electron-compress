@@ -1,5 +1,5 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
-import { IFile } from '@renderer/types'
+import { IFile, ProgressType } from 'src/types'
 
 
 
@@ -9,7 +9,8 @@ declare global {
     api: {
       compress (file: IFile) :void
       selectDirectory (): Promise<string>
-      progress: (callback: (progress: number) => void) => void
+      progressNotice: (callback: (type:ProgressType,  data:any) => void) => void
+      stop: () => void
     }
   }
 }

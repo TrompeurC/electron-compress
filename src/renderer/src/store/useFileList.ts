@@ -26,11 +26,19 @@ export default defineStore('fileList', () => {
       files.value = []
     }
 
+    const resetAll = () => {
+      files.value.forEach(item => {
+        item.progress = 0;
+        item.finished = false;
+        item.status = FileEnum.READY
+      })
+    }
+
     return {
       files,
       addFile,
       removeAll,
-      remove
+      remove,
+      resetAll
     }
-
 })

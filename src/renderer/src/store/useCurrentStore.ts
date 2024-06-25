@@ -8,7 +8,7 @@ export default defineStore('current', () => {
   return {
     fps,
     size,
-    directory
+    directory,
   }
 }, {
   persist: true
