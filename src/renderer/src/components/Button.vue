@@ -6,7 +6,7 @@ import { message } from "ant-design-vue";
 import useCurrentStore from "@renderer/store/useCurrentStore";
 import { onMounted, ref } from "vue";
 import { IFile } from "@renderer/types";
-import { FileEnum, ProgressType } from "src/types";
+import { FileEnum, ProgressType } from "@renderer/types";
 import { storeToRefs } from "pinia";
 import useRunStore from "@renderer/store/useRunStore";
 
@@ -100,7 +100,7 @@ const handleCompress = () => {
   if (currentFile.value) {
     currentFile.value.status = FileEnum.COMPRESS
     currentFile.value.progress = 0
-    window.api.compress({ ...currentFile.value, size: current.size, fps: current.fps, directory: current.directory })
+    window.api.compress({ ...currentFile.value, size: current.size, fps: Number(current.fps), directory: current.directory })
   }
 }
 

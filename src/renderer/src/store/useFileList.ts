@@ -1,6 +1,6 @@
 import { IFile } from "@renderer/types"
 import { defineStore } from "pinia"
-import { FileEnum } from "src/types"
+import { FileEnum } from "@renderer/types"
 import { ref } from "vue"
 import useCurrentStore from "./useCurrentStore"
 

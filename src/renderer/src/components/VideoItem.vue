@@ -3,7 +3,7 @@ import { CloseCircleFilled } from "@ant-design/icons-vue";
 import useFileList from "@renderer/store/useFileList";
 import { IFile } from "@renderer/types";
 import { storeToRefs } from "pinia";
-import { FileEnum } from "src/types";
+import { FileEnum } from "@renderer/types";
 import { computed } from "vue";
 import useRunStore from "@renderer/store/useRunStore";
 import { message } from "ant-design-vue";
@@ -58,9 +58,6 @@ console.log(progress.value)
   @apply absolute top-0 bottom-0 left-0 right-0 rounded-lg z-[-1] duration-1000;
   ;
   width: v-bind(progress);
-  /* background-image: v-bind(status); */
-  background: var(--bg-color)
-    /* background-image: ; */
-  ;
+  background: var(--bg-color);
 }
 </style>

@@ -2,7 +2,7 @@ import ffmpeg ,{type FfmpegCommand}  from 'fluent-ffmpeg'
 import ffmpegI from '@ffmpeg-installer/ffmpeg'
 import ffprobe  from '@ffprobe-installer/ffprobe'
 import path, { join } from 'node:path'
-import { FileEnum, ProgressType } from '../../types'
+import { FileEnum, ProgressType } from '../types'
 import { BrowserWindow } from 'electron'
 import { existsSync, renameSync } from 'node:fs'
 

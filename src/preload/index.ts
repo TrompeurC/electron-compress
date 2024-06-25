@@ -1,7 +1,10 @@
 import { IFile } from '../main/ffpmeg';
 import {  IpcRendererEvent, contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import { ProgressType } from '../types';
+import { ProgressType } from '../main/types';
+// import { ProgressType } from '../main/types';
+
+// import { ProgressType } from '@renderer/types';
 
 // Custom APIs for renderer
 const api = {

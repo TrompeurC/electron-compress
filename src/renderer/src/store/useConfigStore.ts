@@ -1,4 +1,4 @@
-import { ConfigProps } from './../types/index';
+import { ConfigProps } from '../../../main/types/index';
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { message } from 'ant-design-vue'

@@ -1,6 +1,5 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
-import { IFile, ProgressType } from 'src/types'
-
+import { IFile, ProgressType } from '@renderer/types'
 
 
 declare global {

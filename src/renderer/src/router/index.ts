@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory, type RouteRecordRaw } from "vue-router";
 import Home from "@renderer/views/Home.vue";
 import Setting from "@renderer/views/Setting.vue";
 
@@ -17,7 +17,7 @@ const routes: RouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.url),
+  history: createWebHashHistory(import.meta.url),
   routes: routes,
 })
 

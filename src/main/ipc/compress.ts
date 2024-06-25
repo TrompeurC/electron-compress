@@ -1,7 +1,6 @@
 import { FfmpegCommand } from 'fluent-ffmpeg';
 import { BrowserWindow, IpcMainEvent, IpcMainInvokeEvent, ipcMain } from "electron";
 import { FfmpegUtils, IFile } from "../ffpmeg";
-import { ProgressType } from '../../types';
 
 
 
@@ -28,6 +27,6 @@ ipcMain.handle('compress', (_event: IpcMainInvokeEvent , file: IFile) => {
   // .save('/Users/huenzhi/work/fe_workspace/electron/compressed-video/videos/out.mp4');
 })
 
-ipcMain.on('stop', (event: IpcMainEvent) => {
+ipcMain.on('stop', (_event: IpcMainEvent) => {
   ffmpegCommand?.kill('SIGKILL')
 })
