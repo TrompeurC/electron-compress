@@ -6,8 +6,8 @@ import { FileEnum, ProgressType } from '../types'
 import { BrowserWindow } from 'electron'
 import { existsSync, renameSync } from 'node:fs'
 
-ffmpeg.setFfmpegPath(ffmpegI.path)
-ffmpeg.setFfprobePath(ffprobe.path)
+ffmpeg.setFfmpegPath(ffmpegI.path.replace('app.asar', 'app.asar.unpacked'))
+ffmpeg.setFfprobePath(ffprobe.path.replace('app.asar', 'app.asar.unpacked'))
 
 export interface IFile {
   filename: string
