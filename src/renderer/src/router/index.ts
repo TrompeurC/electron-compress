@@ -5,7 +5,7 @@ import Setting from "@renderer/views/Setting.vue";
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
+    path: '/:any(.*)*',
     name: 'home',
     component: Home
   },
